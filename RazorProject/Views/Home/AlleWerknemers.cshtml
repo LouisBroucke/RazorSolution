@@ -1,0 +1,14 @@
+﻿@model List<RazorProject.Models.Werknemer>
+
+<h2>Alle werknemers</h2>
+
+<ul>
+    @foreach (Werknemer werknemer in Model)
+    {
+        <li>@werknemer.Voornaam verdient @werknemer.Wedde euro</li>
+    }
+</ul>
+
+@section Scripts {
+    <p>Hier komen nog allerlei scripts</p>
+}

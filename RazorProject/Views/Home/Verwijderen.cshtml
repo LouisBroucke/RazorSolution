@@ -1,0 +1,10 @@
+﻿@model Filiaal
+@{
+    ViewData["Title"] = "Verwijderen";
+}
+
+<h1>@Model.Naam verwijderen?</h1>
+
+<form action="~/Home/Delete/@Model.Id" method="post">
+    <input type="submit" value="Delete" />
+</form>

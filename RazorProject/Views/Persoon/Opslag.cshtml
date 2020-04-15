@@ -1,0 +1,15 @@
+﻿@model OpslagViewModel
+@{
+    ViewBag.Title = "Opslag";
+}
+
+<h2>Opslag</h2>
+<form asp-action="Opslag" method="post" asp-antiforgery="true">
+    <label asp-for="VanWedde"></label>
+    <input asp-for="VanWedde" />
+    <label asp-for="TotWedde"></label>
+    <input asp-for="TotWedde" />
+    <label asp-for="Percentage"></label>
+    <input asp-for="Percentage" />
+    <input type="submit" value="Weddeverhoging doorvoeren" />
+</form>
