@@ -33,13 +33,66 @@ namespace RazorProject.Controllers
             _persoonService.Delete(id);
             return RedirectToAction("Index");
         }
-
-        [HttpPost]
-        [AutoValidateAntiforgeryToken]
+        
         public IActionResult Opslag()
         {
             OpslagViewModel opslagViewModel = new OpslagViewModel();
+            opslagViewModel.Percentage = 10;
             return View(opslagViewModel);
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult Opslag(OpslagViewModel opslagViewModel)
+        {
+            if (this.ModelState.IsValid)
+            {
+                _persoonService.Opslag(opslagViewModel.VanWedde.Value, opslagViewModel.TotWedde.Value, opslagViewModel.Percentage);
+                return RedirectToAction("Index");
+            } else
+            {
+                return View(opslagViewModel);
+            }
+            
+        }
+
+        [HttpGet]
+        public IActionResult VanTotWedde()
+        {
+            var form = new VanTotWeddeViewModel();
+            return View(form);
+        }
+
+        [HttpGet]
+        public IActionResult VanTotWeddeResultaat(VanTotWeddeViewModel form)
+        {
+            if (this.ModelState.IsValid)
+            {
+                form.Personen = _persoonService.VanTotWedde(form.VanWedde.Value, form.TotWedde.Value);
+            }
+
+            return View("VanTotWedde", form);
+        }
+
+        [HttpGet]
+        public IActionResult Toevoegen()
+        {
+            var persoon = new Persoon();
+            persoon.Score = 1;
+            return View(persoon);
+        }
+
+        [HttpPost]
+        public IActionResult Toevoegen(Persoon p)
+        {
+            if (this.ModelState.IsValid)
+            {
+                _persoonService.Add(p);
+                return RedirectToAction("Index");
+            } else
+            {
+                return View(p);
+            }
         }
     }
 }
